@@ -2,6 +2,18 @@
  
 This read me will have a section for each route and the HTML page that corresponds to that page. 
 
+----------Color Scheme & Design------------
+
+    Our color scheme for the site is gold, silver and black
+
+    Here is a list of the css Codes for the colors we are gonna be using for the site:
+    
+        gold: #ffd700
+        silver: #c0c0c0
+        black: #000000
+
+-------------------------------------------
+
 "/"
 This will be the landing page for the app and inform the users what it is that they will get getting from the app and how the app can be used to help them meet their goals. 
 
@@ -16,3 +28,4 @@ This will be the page that the user sees when they have successfuly complete the
 This page will show the saved lifts for the used and allow them to add lifts that they want in the future and set and adjust those numbers 
 if the completed butten on each lift is pressed the lift will have 5 pounds added too it for the next session 
 if the fail button is pressed then the user will have the sets and reps adjusted to make up for the lift being missed and the numbers will be kept the same for the next session 
+
