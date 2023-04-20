@@ -2,7 +2,7 @@
 # this is the main app file for the flask app
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from flask_oauth import OAuth
+from flask_oauthlib.client import OAuth
 
 # configuration
 DEBUG = True
@@ -59,15 +59,7 @@ def logout():
     return render_template("logout.html")
 
 
-@app.route("/login/authorized")
-def authorized():
-    resp = facebook.authorized_response()
-    if resp is None:
-        flash("You denied the request to sign in.")
-        return redirect(url_for("login"))
-    session["oauth_token"] = (resp["access_token"], "")
-    me = facebook.get("/me")
-    return redirect(url_for("account"))
+
 
 
 @facebook.tokengetter
