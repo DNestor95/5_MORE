@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for 5more on 2023-04-20T13:45:02-05:00
+# fly.toml app configuration file generated for 5more on 2023-04-20T14:20:03-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -19,7 +19,7 @@ processes = []
 
 [[services]]
   http_checks = []
-  internal_port = 8080
+  internal_port = 80
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
