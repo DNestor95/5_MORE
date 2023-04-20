@@ -2,7 +2,7 @@
 #this is the main app file for the flask app
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from flask_oauth import OAuth
+from flask_oauthlib.client import OAuth
 
 #configuration
 DEBUG = True
@@ -16,6 +16,21 @@ app.config.from_object(__name__)
     
 #oauth setup
 oauth = OAuth()
+
+google = oauth.remote_app(
+    'google',
+    consumer_key='<your client ID>',
+    consumer_secret='<your client secret>',
+    request_token_params={
+        'scope': 'email'
+    },
+    base_url='https://www.googleapis.com/oauth2/v1/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    authorize_url='https://accounts.google.com/o/oauth2/auth'
+)
+
 facebook = oauth.remote_app('facebook',
     base_url='https://graph.facebook.com/',
     request_token_url=None,
