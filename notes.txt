@@ -1,0 +1,5 @@
+****************************************************************************
+                        Notes for 5 More Mobile App 
+
+    1. Calorie Tracker
+        - ask user how many calories they consumed in their most recent meal
