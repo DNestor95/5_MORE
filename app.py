@@ -1,6 +1,3 @@
-# basic flask app to show pages for login, register, authroized, signup,  and account creation wiht oauth for the login page and signup page
-# this is the main app file for the flask app
-
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_oauthlib.client import OAuth
 import google_auth_oauthlib
@@ -9,8 +6,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from flask_sqlalchemy import SQLAlchemy
 import os
-# configuration
-DEBUG = True
+
 
 
 
@@ -21,23 +17,32 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 
 
-#create the database for the app
-db = SQLAlchemy()
-app.config['SQLALCHEMY_DATABASE_URI'] = 'fdaa:1:da8e:0:1::2'
+# database setup
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db.init_app(app)
+db = SQLAlchemy(app)
+
+# database models
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    username = db.Column(db.String(80), unique=True)
+    email = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(80), unique=True)
+    sets = db.Column(db.Integer, unique=True)
+    reps = db.Column(db.Integer, unique=True)
+    weight = db.Column(db.Integer, unique=True)
+    
+
+    def __init__(self, username, password):
+        self.username = username
+        #self.email = email
+        self.password = password
 
     def __repr__(self):
         return '<User %r>' % self.username
-
-db.create_all()
 
 #the oauth is working and calling the api but I cannot fully test it since fly will not allow us to deploy
 
@@ -46,7 +51,7 @@ db.create_all()
 def login_google():
     # Create a flow instance using the client ID and secret
     # obtained from the Google Cloud Console
-    flow = flow = google_auth_oauthlib.flow.Flow.from_client_config(
+    flow = google_auth_oauthlib.flow.Flow.from_client_config(
         {'client_id': os.getenv('GOOGLE_CLIENT_ID'), 'client_secret': os.getenv('GOOGLE_CLIENT_SECRET')},
         scopes=['openid', 'email', 'profile'])
 
@@ -89,29 +94,50 @@ def login_google_callback():
 def index():
     return render_template("index.html")
 
-
-@app.route("/login")
+#route for login that displays the login page and authenticates the users
+@app.route("/login", methods=["GET", "POST"])
 def login():
-   #get the login info from the form and check it against the database
-    if request.method == "POST":    
+    if request.method == "POST":
+        # get form info
         username = request.form["username"]
         password = request.form["password"]
-        #check if the username and password are in the database
-        user = User.query.filter_by(username=username, password=password).first()
-        if user is None:
-            flash("Username or password is incorrect")
-            return redirect(url_for("login"))
+
+        # check if user exists
+        user = User.query.filter_by(username=username).first()
+
+        if user:
+            if user.password == password:
+                session["username"] = username
+                flash("Login successful!", "info")
+                return redirect(url_for("account"))
+            else:
+                flash("Incorrect password!", "warning")
+                return redirect(url_for("login"))
         else:
-            session["user_id"] = user.id
-            return redirect(url_for("account"))
+            flash("User does not exist!", "warning")
+            return redirect(url_for("login"))
     else:
         return render_template("login.html")
     
 
+    
+    
 
-@app.route("/signup")
+
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return render_template("signup.html")
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        #put the info into the database
+        user = User(username, password, email)
+        db.session.add(user)
+        db.session.commit()
+    
+        return 'Thank you for signing up, ' + username + '!'
+    else:
+        return render_template('signup.html')
 
 
 @app.route("/authorized")
@@ -133,5 +159,6 @@ def logout():
 
 
 
-
+if __name__ == "__main__":
+    app.run()
 
