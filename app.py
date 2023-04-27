@@ -18,7 +18,7 @@ app.config.from_object(__name__)
 
 # database setup
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://postgres:y40A5phUu3hLic0@5moreapp-db.flycast:5432"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://postgresql:y40A5phUu3hLic0@5moreapp-db.flycast:5432"
 
 
 db = SQLAlchemy(app)
@@ -47,7 +47,7 @@ class Workout(db.Model):
     reps = db.Column(db.Integer, nullable=False)
     sets = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    
 
     
     
