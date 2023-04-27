@@ -195,10 +195,29 @@ def workout():
         workout = Workout(workout_name, sets, reps, weight, session["username"])
         db.session.add(workout)
         db.session.commit()
+    #if button for passworkout is pressed then add 5 pounds to the weight
+    #add 2 reps to the reps     
+    #add 1 set to the sets
+    #add the workout to the database
+    if request.method == "POST":
+        if request.form["pass_button"] == "Passed Workout":
+            workout_name = request.form["workout_name"]
+            sets = request.form["sets"]
+            reps = request.form["reps"]
+            weight = request.form["weight"]
+            workout = Workout(workout_name, sets, reps, weight, session["username"])
+            db.session.add(workout)
+            db.session.commit()
+            weight = weight + 5
+            workout = Workout(workout_name, weight, session["username"])
+            db.session.add(workout)
+            db.session.commit()
+            return redirect(url_for("workout"))
+
 
     
     if request.method == "POST":
-        if request.form["submit_button"] == "Failed Workout":
+        if request.form["fail_button"] == "Failed Workout":
             workout_name = request.form["workout_name"]
             sets = request.form["sets"]
             reps = request.form["reps"]
