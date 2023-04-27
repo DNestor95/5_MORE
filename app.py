@@ -161,10 +161,26 @@ def account():
     reps = session.username.get("reps")
     sets = session.username.get("sets")
     weight = session.username.get("weight")
+    #if one button called passed is pressed then the weight is increaed by 5 pounds, if the fail button is pressed then the weight is decreased by 5 pounds then update the page    
+    if request.method == "POST":
+        if request.form["passed"]:
+            weight += 5
+        elif request.form["fail"]:
+            sets += 1
+            reps = reps * 1.2
+            weight -= 5
+        else:
+            return render_template("account.html", workout=workout, reps=reps, sets=sets, weight=weight)
+    #pass the new values to the database for the current session user
+    user = User.query.filter_by(username=username).first()
+    user.workout = workout
+    user.reps = reps
+    user.sets = sets
+    user.weight = weight
+    db.session.commit()
     
     
-    
-    return render_template("workout.html")
+    return render_template("account.html", workout=workout, reps=reps, sets=sets, weight=weight)
 
 
 @app.route("/logout")
