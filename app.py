@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
 import os
-
+import bcrypt
 
 # app setup
 
@@ -32,7 +32,7 @@ class User(db.Model):
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(50), unique=True, nullable=False)
-    password = Column(String(50), nullable=False)
+    hashed_password = Column(String(50), nullable=False)
     workouts = relationship("Workout", backref="user", lazy=True)
 
 class Workout(db.Model):
@@ -128,13 +128,19 @@ def login():
         # get form info
         username = request.form["username"]
         password = request.form["password"]
-
+        #check the password if it matches the users password 
+        
+        
         # check if user exists in database
         user = User.query.filter_by(username=username).first()
+        #get hashed password from database
+        hashed_password = User.query.filter_by(hashed_password=hashed_password).first()
         
 
         if user:
-            if user.password == password:
+
+                
+            if bcrypt.checkpw(password, hashed_password):
                 session["username"] = username
                 flash("Login successful!", "info")
                 return redirect(url_for("account"))
@@ -154,8 +160,12 @@ def signup():
         username = request.form["username"]
         email = request.form["email"]
         password = request.form["password"]
+        #encrypt the password with bcrypt
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(password, salt)
+        
         # put the info into the database
-        user = User(username, password, email)
+        user = User(username, hashed_password, email)
         db.session.add(user)
         db.session.commit()
 
@@ -174,9 +184,9 @@ def workout():
     # get hte current user and display their workouts
     workouts = Workout.query.filter_by(user_id=session["username"]).all()
 
-    
 
-    # add a workout to the database from the form for the current user
+
+    
     if request.method == "POST":
         workout_name = request.form["workout_name"]
         sets = request.form["sets"]
@@ -186,6 +196,23 @@ def workout():
         db.session.add(workout)
         db.session.commit()
 
+    
+    if request.method == "POST":
+        if request.form["submit_button"] == "Failed Workout":
+            workout_name = request.form["workout_name"]
+            sets = request.form["sets"]
+            reps = request.form["reps"]
+            weight = request.form["weight"]
+            workout = Workout(workout_name, sets, reps, weight, session["username"])
+            db.session.add(workout)
+            db.session.commit()
+            weight = weight - 5
+            reps = reps + 2
+            sets = sets + 1
+            workout = Workout(workout_name, sets, reps, weight, session["username"])
+            db.session.add(workout)
+            db.session.commit()
+            return redirect(url_for("workout"))
         
 
         return redirect(url_for("workout"))

@@ -1,3 +1,4 @@
+https://github.com/DNestor95/5_MORE
 # Pythopn-5_MORE-Flask-APP
  
 This read me will have a section for each route and the HTML page that corresponds to that page. 
@@ -18,7 +19,9 @@ This read me will have a section for each route and the HTML page that correspon
 This will be the landing page for the app and inform the users what it is that they will get getting from the app and how the app can be used to help them meet their goals. 
 ---------------------------------------------------------------------------------------------------
 "/login"
-This is where the user will either be able to login with Oauth or email and password 
+This is where the user will either be able to login with Oauth or email and password code for oauth code = (zcEJwR76qM)
+used bcrypt for the hasing and salting of passwords for the site stretch feature code = (ST2HWjlRrB)
+
 ------------------------------------------------------------------------------------------------------
 "/signup"
 this page will be where we gather the needed information from the user and return the collected data too the database to be used at a later time
