@@ -1,0 +1,7 @@
+ Username:    postgres
+  Password:    y40A5phUu3hLic0
+  Hostname:    5moreapp-db.internal
+  Flycast:     fdaa:1:da8e:0:1::9
+  Proxy port:  5432
+  Postgres port:  5433
+  Connection string: postgres://postgres:y40A5phUu3hLic0@5moreapp-db.flycast:5432
