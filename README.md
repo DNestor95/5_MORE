@@ -37,9 +37,9 @@ if the fail button is pressed then the user will have the sets and reps adjusted
 1.Oauth api key needs to be aproved and set 
 2.hashing and salting for passwords on the db 
 3.deployment is still an issue but the video from lecture 11 needs to be reviewed and a basic app can be deolpyed in the same manner 
-4.
+4.we are not able to deploy anything to fly.io at all now even when we were able to deploy the base app before. nothing we can do about that so we are skipping deployment. This means that we cannot get a database working tho with fly and I have been trying to get a local db running but for some reason I can not connect to the local db to be able to test if anything we are working on is working. 
+
 5.
 6.
 7.
 
-#

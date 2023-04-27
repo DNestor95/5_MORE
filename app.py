@@ -174,6 +174,23 @@ def workout():
     # get hte current user and display their workouts
     workouts = Workout.query.filter_by(user_id=session["username"]).all()
 
+    
+
+    # add a workout to the database from the form for the current user
+    if request.method == "POST":
+        workout_name = request.form["workout_name"]
+        sets = request.form["sets"]
+        reps = request.form["reps"]
+        weight = request.form["weight"]
+        workout = Workout(workout_name, sets, reps, weight, session["username"])
+        db.session.add(workout)
+        db.session.commit()
+
+        
+
+        return redirect(url_for("workout"))
+    
+    
     return render_template("workout.html", workouts=workouts)
 
 
