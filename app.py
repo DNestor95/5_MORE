@@ -26,7 +26,7 @@ db = SQLAlchemy(app)
 #the database should have a user table and each user should have a workout object inside it 
 class User(db.Model):
     __tablename__ = 'users'
-
+    username = db.Column(db.String(255), nullable=False)
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -182,7 +182,7 @@ def account():
         else:
             return render_template("workout.html", workout=workout, reps=reps, sets=sets, weight=weight)
     #pass the new values to the database for the current session user
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=session["username"]).first()
     user.workout = workout
     user.reps = reps
     user.sets = sets
