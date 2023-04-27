@@ -33,7 +33,7 @@ class User(db.Model):
     reps = db.Column(db.Integer, unique=True)
     weight = db.Column(db.Integer, unique=True)
     workout = db.Column(db.String(80), unique=True)
-    
+
     def __init__(self, username, password):
         self.username = username
         # self.email = email
@@ -157,13 +157,11 @@ def authorized():
 
 @app.route("/workout", methods=["GET", "POST"])
 def account():
-    workout =  session.username.get("workout")
+    workout = session.username.get("workout")
     reps = session.username.get("reps")
     sets = session.username.get("sets")
     weight = session.username.get("weight")
-    
-    
-    
+
     return render_template("workout.html")
 
 
@@ -172,5 +170,5 @@ def logout():
     return render_template("logout.html")
 
 
-# if __name__ == "__main__":
-# app.run()
+if __name__ == "__main__":
+    app.run()
