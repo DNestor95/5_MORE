@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="static/signup.css">
 </head>
 <body>
+
+    <!-- Navigation Bar -->
     <div class = "banner">
         <div class = "navbar">
             <img src="5-More.png" class="logo">
@@ -21,7 +23,8 @@
         </div>
     </div>
 
-    <div class = "signup-box">
+    <!-- Signup Container("Box") -->
+    <div class = "signup-box">›
         <form action="{{ url_for('signup') }}" method="post">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br>
@@ -31,10 +34,15 @@
   
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required><br>
-  
+            
+            <!-- Signup Button that should direct you to the login page once pressed -->
             <a href="/login">
                 <button class = "btn"><span></span>Sign Up</button>
             </a>
+            <!-- Signup with google button -->
+            <a href="https://accounts.google.com/signup" target="_blank">
+                <button class="google-btn"><span></span>Sign Up with Google</button>
+              </a>
         </form>
     </div>
 </body>

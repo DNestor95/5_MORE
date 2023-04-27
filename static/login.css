@@ -3,6 +3,7 @@
     padding: 0;
     font-family: monospace;
   }
+  /* Navigation Bar Styling */
   .banner{
     width: 100%;
     height: 100vh;
@@ -46,7 +47,7 @@
   .navbar ul li:hover::after{
     width: 100%;
   }
-
+/* Content Styling */
   .content{
     width: 100%;
     position: absolute;
@@ -59,7 +60,7 @@
     font-size: 70px;
     margin-top: 80px;
   }
-
+/* Login Box Styling */
   .login-box{
     width: 320px;
     height: 500px;
@@ -107,7 +108,8 @@
     color: #ffd700;
     font-size: 16px;
   }
-
+/* Login Button Styling */
+  .login-box
 button{
     width: 200px;
     padding: 15px 0;

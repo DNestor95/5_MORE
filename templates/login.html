@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="static/login.css">
   </head>
 
+  <!-- Navigation Bar -->
   <body>
     <div class = "banner">
         <div class = "navbar">
@@ -23,6 +24,7 @@
         </div>
     </div>
 
+    <!-- Login Container("Box") -->
     <div class = "login-box">
         <form action="/login" method="post">
             <label for="username">Username:</label>
@@ -30,14 +32,16 @@
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" placeholder="Enter Password"><br><br>
-            
+
             <a href="/workout">
                 <button class = "btn"><span></span>Login</button>
             </a>
+
+            <!-- Login with google button -->
+            <a href="{{ url_for('login_google') }}">
+                <button class = "btn"><span></span>Login with Google</button>
+            </a>
         </form>
-        <div class = "google">
-          <a href="{{ url_for('login_google') }}"><img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"></a>
-        </div>
     </div>
   </body>
 </html>

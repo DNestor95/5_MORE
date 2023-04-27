@@ -3,6 +3,7 @@
   padding: 0;
   font-family: monospace;
 }
+/* Navigation Bar Styling */
 .banner{
   width: 100%;
   height: 100vh;
@@ -47,6 +48,7 @@
   width: 100%;
 }
 
+/* Content Styling */
 .content{
   width: 100%;
   position: absolute;
@@ -60,6 +62,7 @@
   margin-top: 80px;
 }
 
+/* Login and Signup Button Styling */
 button{
   width: 200px;
   padding: 15px 0;
