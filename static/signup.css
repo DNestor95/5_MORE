@@ -47,20 +47,7 @@
     width: 100%;
   }
 
-  .content{
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
-    color: #ffd700;
-  }
-  .content h1{
-    font-size: 70px;
-    margin-top: 80px;
-  }
-
-  .login-box{
+  .signup-box{
     width: 320px;
     height: 500px;
     background-color: black;
@@ -74,31 +61,31 @@
     align-items: center;
   }
 
-  .login-box h1{
+  .signup-box h1{
     margin: 0;
     text-align: center;
     font-size: 22px;
   }
 
-  .login-box h2{
+  .signup-box h2{
     margin: 0;
     text-align: center;
     font-size: 22px;
   }
 
-  .login-box label{
+  .signup-box label{
     margin: 0;
     padding: 0;
     font-weight: bold;
     display: block;
   }
 
-  .login-box input{
+  .signup-box input{
     width: 100%;
     margin-bottom: 20px;
   }
 
-  .login-box input[type="text"], input[type="password"]{
+  .signup-box input[type="text"], input[type="email"], input[type="password"]{
     border: none;
     border-bottom: 1px solid #ffd700;
     background: transparent;
@@ -136,15 +123,10 @@ button{
     transition: 1s;
   }
   
-.login-box button:hover span{
+.signup-box button:hover span{
     width: 100%;
   }
   
-.login-box button:hover{
+.signup-box button:hover{
     border: none;
   }
-
-.google{
-    width: 100%;
-    text-align: center;
-}

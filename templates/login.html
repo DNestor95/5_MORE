@@ -8,14 +8,14 @@
         <title>Login page</title>
         <link rel="stylesheet" href="static/login.css">
   </head>
-  
+
   <body>
     <div class = "banner">
         <div class = "navbar">
             <img src="5-More.png" class="logo">
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="#">My Profile</a></li>
+                <li><a href="/workout">My Workouts</a></li>
                 <li><a href="/login">Login</a></li>
                 <li><a href="/signup">Sign Up</a></li>
                 <li><a href="#">Logout</a></li>
@@ -24,17 +24,20 @@
     </div>
 
     <div class = "login-box">
-        <h1>Login Here</h1>
         <form action="/login" method="post">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username"><br><br>
+            <input type="text" id="username" name="username", placeholder="Enter Username"><br><br>
+
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password"><br><br>
-            <input type="submit" value="Login">
-          </form>
-          <hr>
-          <h2>Login with Google</h2>
+            <input type="password" id="password" name="password" placeholder="Enter Password"><br><br>
+            
+            <a href="/workout">
+                <button class = "btn"><span></span>Login</button>
+            </a>
+        </form>
+        <div class = "google">
           <a href="{{ url_for('login_google') }}"><img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"></a>
+        </div>
     </div>
   </body>
 </html>

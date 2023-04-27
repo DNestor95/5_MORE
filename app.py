@@ -8,9 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 
 
-
-
-
 # app setup
 
 app = Flask(__name__)
@@ -19,12 +16,13 @@ app.config.from_object(__name__)
 
 # database setup
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
 # database models
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,67 +32,82 @@ class User(db.Model):
     sets = db.Column(db.Integer, unique=True)
     reps = db.Column(db.Integer, unique=True)
     weight = db.Column(db.Integer, unique=True)
-    
 
     def __init__(self, username, password):
         self.username = username
-        #self.email = email
+        # self.email = email
         self.password = password
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return "<User %r>" % self.username
 
-#the oauth is working and calling the api but I cannot fully test it since fly will not allow us to deploy
+
+# the oauth is working and calling the api but I cannot fully test it since fly will not allow us to deploy
+
 
 # oauth setup
-@app.route('/login/google')
+@app.route("/login/google")
 def login_google():
     # Create a flow instance using the client ID and secret
     # obtained from the Google Cloud Console
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
-        {'client_id': os.getenv('GOOGLE_CLIENT_ID'), 'client_secret': os.getenv('GOOGLE_CLIENT_SECRET')},
-        scopes=['openid', 'email', 'profile'])
+        {
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+            "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+        },
+        scopes=["openid", "email", "profile"],
+    )
 
     # Generate a URL for the user to authorize the application
     authorization_url, state = flow.authorization_url(
-        access_type='offline', prompt='consent')
+        access_type="offline", prompt="consent"
+    )
 
     # Store the state in the session so the callback can verify the response
-    session['oauth_state'] = state
+    session["oauth_state"] = state
 
     return redirect(authorization_url)
 
-@app.route('/login/google/callback')
+
+@app.route("/login/google/callback")
 def login_google_callback():
     # Verify the state to prevent cross-site request forgery attacks
-    state = session.pop('oauth_state', None)
-    if state is None or state != request.args.get('state'):
-        return 'Invalid state parameter', 400
+    state = session.pop("oauth_state", None)
+    if state is None or state != request.args.get("state"):
+        return "Invalid state parameter", 400
 
     # Exchange the authorization code for an access token and ID token
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
-        {'client_id': os.getenv('GOOGLE_CLIENT_ID'), 'client_secret': os.getenv('GOOGLE_CLIENT_SECRET')},
-        scopes=['openid', 'email', 'profile'])
+        {
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+            "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+        },
+        scopes=["openid", "email", "profile"],
+    )
     flow.fetch_token(authorization_response=request.url)
 
     # Verify the ID token and get the user's information
     id_info = id_token.verify_oauth2_token(
-        flow.credentials.id_token, requests.Request(), CLIENT_ID)
+        flow.credentials.id_token, requests.Request(), CLIENT_ID
+    )
 
     # Get the user's email and name
-    email = id_info['email']
-    name = id_info.get('name', '')
+    email = id_info["email"]
+    name = id_info.get("name", "")
 
     # Do something with the user's information (e.g. create a new user account)
     # ...
 
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))
+
+
 # routes
 @app.route("/")
 def index():
     return render_template("index.html")
 
-#route for login that displays the login page and authenticates the users
+
+# route for login that displays the login page and authenticates the users
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -118,26 +131,22 @@ def login():
             return redirect(url_for("login"))
     else:
         return render_template("login.html")
-    
-
-    
-    
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        #put the info into the database
+    if request.method == "POST":
+        username = request.form["username"]
+        email = request.form["email"]
+        password = request.form["password"]
+        # put the info into the database
         user = User(username, password, email)
         db.session.add(user)
         db.session.commit()
-    
-        return 'Thank you for signing up, ' + username + '!'
+
+        return "Thank you for signing up, " + username + "!"
     else:
-        return render_template('signup.html')
+        return render_template("signup.html")
 
 
 @app.route("/authorized")
@@ -145,9 +154,9 @@ def authorized():
     return render_template("authorized.html")
 
 
-@app.route("/account")
+@app.route("/workout")
 def account():
-    return render_template("account.html")
+    return render_template("workout.html")
 
 
 @app.route("/logout")
@@ -155,10 +164,5 @@ def logout():
     return render_template("logout.html")
 
 
-
-
-
-
 if __name__ == "__main__":
     app.run()
-
