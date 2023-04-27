@@ -89,7 +89,7 @@ def login_google_callback():
 
     # Verify the ID token and get the user's information
     id_info = id_token.verify_oauth2_token(
-        flow.credentials.id_token, requests.Request(), CLIENT_ID
+        flow.credentials.id_token, requests.Request(), os.getenv("GOOGLE_CLIENT_ID")
     )
 
     # Get the user's email and name

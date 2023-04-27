@@ -1,1 +1,1 @@
-web: gunicorn 5more:app
+web: gunicorn 5moreapp:app
