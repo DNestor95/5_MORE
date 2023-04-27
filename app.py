@@ -23,16 +23,26 @@ db = SQLAlchemy(app)
 
 # database models
 
-
+#the database should have a user table and each user should have a workout object inside it 
 class User(db.Model):
+    __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(120), unique=True)
-    password = db.Column(db.String(80), unique=True)
-    sets = db.Column(db.Integer, unique=True)
-    reps = db.Column(db.Integer, unique=True)
-    weight = db.Column(db.Integer, unique=True)
-    workout = db.Column(db.String(80), unique=True)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    workouts = db.relationship('Workout', backref='user', lazy=True)
+
+
+class Workout(db.Model):
+    __tablename__ = 'workouts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    reps = db.Column(db.Integer, nullable=False)
+    sets = db.Column(db.Integer, nullable=False)
+    weight = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
     
     def __init__(self, username, password):
         self.username = username
@@ -170,7 +180,7 @@ def account():
             reps = reps * 1.2
             weight -= 5
         else:
-            return render_template("account.html", workout=workout, reps=reps, sets=sets, weight=weight)
+            return render_template("workout.html", workout=workout, reps=reps, sets=sets, weight=weight)
     #pass the new values to the database for the current session user
     user = User.query.filter_by(username=username).first()
     user.workout = workout
@@ -180,7 +190,7 @@ def account():
     db.session.commit()
     
     
-    return render_template("account.html", workout=workout, reps=reps, sets=sets, weight=weight)
+    return render_template("workout.html", workout=workout, reps=reps, sets=sets, weight=weight)
 
 
 @app.route("/logout")
