@@ -1,7 +1,20 @@
 https://github.com/DNestor95/5_MORE
 # Pythopn-5_MORE-Flask-APP
- 
-This read me will have a section for each route and the HTML page that corresponds to that page. 
+ PROJECT PLAN = https://docs.google.com/document/d/18xhniXCuXGK_145nvtTmIOWL8qX7nD_lbzSf9knrD1g/edit?usp=sharing
+
+
+
+/****************************TECHNICAL REQUIREMENTS************************************/
+FLASK APP
+POSTGRES 
+LOGIN
+BEAUTIFICATION 
+
+/****************************STRETCH FEATURES************************************/
+used bcrypt for the hasing and salting of passwords for the site stretch feature code = (ST2HWjlRrB)
+Oauth or email and password code for oauth code = (zcEJwR76qM)
+
+
 
 ----------Color Scheme & Design------------
 
@@ -45,4 +58,5 @@ if the fail button is pressed then the user will have the sets and reps adjusted
 5.
 6.
 7.
+
 
