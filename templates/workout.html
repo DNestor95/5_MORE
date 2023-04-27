@@ -22,27 +22,51 @@
                 </ul>
             </div>
         </div>
-        <h1>Workouts for {{ user.email }}</h1>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Reps</th>
-              <th>Sets</th>
-              <th>Weight</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for workout in workouts %}
-              <tr>
-                <td>{{ workout.name }}</td>
-                <td>{{ workout.reps }}</td>
-                <td>{{ workout.sets }}</td>
-                <td>{{ workout.weight }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <h1>Workouts for {{ user.email }}</h1>
+        <div class = "workout-table">
+            <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Reps</th>
+                    <th>Sets</th>
+                    <th>Weight</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for workout in workouts %}
+                    <tr>
+                      <td>{{ workout.name }}</td>
+                      <td>{{ workout.reps }}</td>
+                      <td>{{ workout.sets }}</td>
+                      <td>{{ workout.weight }}</td>
+                    </tr>
+                    <button class = "pass_button"><span></span>Pass</button>
+                    <button class = "fail_button"><span></span>Fail</button>
+                  {% endfor %}
+                </tbody>
+              </table>
+        </div>
+        
+        <body>
+            <div class = "add_workout">
+                <form action="/workout" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name", placeholder="Enter Name"><br><br>
+    
+                <label for="reps">Reps:</label>
+                <input type="text" id="reps" name="reps" placeholder="Enter Reps"><br><br>
+    
+                <label for="sets">Sets:</label>
+                <input type="text" id="sets" name="sets" placeholder="Enter Sets"><br><br>
+    
+                <label for="weight">Weight:</label>
+                <input type="text" id="weight" name="weight" placeholder="Enter Weight"><br><br>
+    
+                <button class = "btn"><span></span>Add Workout</button>
+                </form>
+            </div>
+        </body>
     </body>
 </html>

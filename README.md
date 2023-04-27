@@ -4,6 +4,17 @@ https://github.com/DNestor95/5_MORE
 
 
 
+/********************Connection String to DB***************/
+Connection string: postgres://postgres:3SmDF87t4GWk7ry@5-more-db.flycast:5432
+Unable to connect to DB though.
+
+/***************Fly Url to Website*********************/
+URL: https://5-more.fly.dev/
+
+Failed to deploy, so it won't work. Just put it here to show that we were trying.
+
+
+
 /****************************TECHNICAL REQUIREMENTS************************************/
 FLASK APP
 POSTGRES 
@@ -39,14 +50,37 @@ used bcrypt for the hasing and salting of passwords for the site stretch feature
 "/signup"
 this page will be where we gather the needed information from the user and return the collected data too the database to be used at a later time
 --------------------------------------------------------------------------------------------------------
-"/authorized"
-This will be the page that the user sees when they have successfuly complete the sign up or have completed the login verification. 
-This page will show the saved lifts for the used and allow them to add lifts that they want in the future and set and adjust those numbers 
-if the completed butten on each lift is pressed the lift will have 5 pounds added too it for the next session 
-if the fail button is pressed then the user will have the sets and reps adjusted to make up for the lift being missed and the numbers will be kept the same for the next session 
+"/workouts"
+This is where the user's previous workouts will display and there should be a form 
+for the user to add another workout underneath the table.
+Also has Pass & Fail buttons that have their own functionality based off which one you pres.
+--------------------------------------------------------------------------------------------------------
+"/logout"
+logs the current user that is signed in. to log out
+
+/*********************Takeaways*******************/
+
+        2 Examples of things we enjoyed or learned from this project
+
+1. Working with each other on this project was fun other than the deployment and DB
+   issues. We worked really well together and
+   were on the same page about pretty much everything. Literally couldn't have asked for a better partner.
+
+2. I really enjoyed learning different styling techniques and messing with the 
+   buttons.
+------------------------------------------------------------------------------------
+        2 Examples of things we did not enjoy or wanted to learn from this project
+
+1. Fly.io I'm sure has great people working for it. However, the amount of pain and
+   suffering it has caused Dan and I is devastating. No matter what we did we could not get the DB to work or deploy. We even tried starting from scratch and trying to get a basic hellofly app to deploy and we had no luck. On top of that, the amount of documentation on DB and Deploying troubleshooting is little to none. WE NEED MORE DOCUMENTATION!!
+
+2. I really wanted to learn how to use react so it could make transitioning this 
+   from a web app to a mobile app. However, we spent most of our time on deploying
+   and trying to get the DB to work that we could not.
 
 
-
+WE ARE NOT LETTING THIS STOP US. 5 More will be on the app store in the future, so just keep an eye on us. And just ask yourself "What's 5 More?"
+If you haven't realized by now, that's our slogan. Its got a nice ring to it.
 
 
 /****************************current issues that are being worked on*************************************/
