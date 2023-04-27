@@ -36,7 +36,6 @@ npm==0.1.1
 numpy==1.24.2
 oauth==1.0.1
 oauthlib==2.1.0
-optional-django==0.1.0
 packaging==23.0
 parso==0.8.3
 pexpect==4.8.0
