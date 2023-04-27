@@ -104,8 +104,15 @@ def login_google_callback():
     email = id_info["email"]
     name = id_info.get("name", "")
 
-    # Do something with the user's information (e.g. create a new user account)
-    # ...
+    # Store the user's information in the session
+    session["email"] = email
+    session["name"] = name
+
+    #create a user in the database
+    user = User(email, name)
+    db.session.add(user)
+    db.session.commit()
+    
 
     return redirect(url_for("index"))
 
@@ -164,13 +171,12 @@ def authorized():
 
 
 @app.route("/workout", methods=["GET", "POST"])
-def account():
-    workout = session.username.get("workout")
-    reps = session.username.get("reps")
-    sets = session.username.get("sets")
-    weight = session.username.get("weight")
+def user_workouts(user_id):
+    user = User.query.get_or_404(user_id)
+    workouts = user.workouts.all()
+    
+    return render_template("workout.html", workouts=workouts)
 
-    return render_template("workout.html")
 
 
 @app.route("/logout")
