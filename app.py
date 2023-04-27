@@ -18,7 +18,9 @@ app.config.from_object(__name__)
 
 # database setup
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://postgresql:y40A5phUu3hLic0@5moreapp-db.flycast:5432"
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql://postgres:y40A5phUu3hLic0@5moreapp-db.flycast:5432"
 
 
 db = SQLAlchemy(app)
@@ -31,32 +33,30 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    workouts = db.relationship('Workout', backref='user', lazy=True)
-    def __init__(self, username, password,email):
+    workouts = db.relationship("Workout", backref="user", lazy=True)
+
+    def __init__(self, username, password, email):
         self.username = username
         self.email = email
         self.password = password
+
     def __repr__(self):
         return "<User %r>" % self.username
-    
+
+
 class Workout(db.Model):
-    __tablename__ = 'workouts'
+    __tablename__ = "workouts"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     reps = db.Column(db.Integer, nullable=False)
     sets = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
-    
 
-    
-    
-
-    
 
 with app.app_context():
     db.create_all()
-    
+
 
 # the oauth is working and calling the api but I cannot fully test it since fly will not allow us to deploy
 
@@ -115,11 +115,10 @@ def login_google_callback():
     session["email"] = email
     session["name"] = name
 
-    #create a user in the database
+    # create a user in the database
     user = User(email, name)
     db.session.add(user)
     db.session.commit()
-    
 
     return redirect(url_for("index"))
 
@@ -179,22 +178,18 @@ def authorized():
 
 @app.route("/workout", methods=["GET", "POST"])
 def workout():
-    #get hte current user and display their workouts
+    # get hte current user and display their workouts
     workouts = Workout.query.filter_by(user_id=session["username"]).all()
-    
-    
-    return render_template("workout.html", workouts=workouts)
 
+    return render_template("workout.html", workouts=workouts)
 
 
 @app.route("/logout")
 def logout():
-    #log current user out   
+    # log current user out
     session.pop("username", None)
     flash("You have been logged out!", "info")
-    
+
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
-
