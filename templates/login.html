@@ -26,7 +26,7 @@
 
     <!-- Login Container("Box") -->
     <div class = "login-box">
-        <form action="/login" method="post">
+        <form action="/login" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username", placeholder="Enter Username"><br><br>
 
@@ -36,7 +36,6 @@
             <a href="/workout">
                 <button class = "btn"><span></span>Login</button>
             </a>
-
             <!-- Login with google button -->
             <a href="{{ url_for('login_google') }}">
                 <button class = "btn"><span></span>Login with Google</button>

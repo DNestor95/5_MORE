@@ -23,10 +23,8 @@ db = SQLAlchemy(app)
 
 # database models
 
-#the database should have a user table and each user should have a workout object inside it 
+
 class User(db.Model):
-    __tablename__ = 'users'
-    username = db.Column(db.String(255), nullable=False)
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -167,30 +165,12 @@ def authorized():
 
 @app.route("/workout", methods=["GET", "POST"])
 def account():
-    workout =  session.username.get("workout")
+    workout = session.username.get("workout")
     reps = session.username.get("reps")
     sets = session.username.get("sets")
     weight = session.username.get("weight")
-    #if one button called passed is pressed then the weight is increaed by 5 pounds, if the fail button is pressed then the weight is decreased by 5 pounds then update the page    
-    if request.method == "POST":
-        if request.form["passed"]:
-            weight += 5
-        elif request.form["fail"]:
-            sets += 1
-            reps = reps * 1.2
-            weight -= 5
-        else:
-            return render_template("workout.html", workout=workout, reps=reps, sets=sets, weight=weight)
-    #pass the new values to the database for the current session user
-    user = User.query.filter_by(username=session["username"]).first()
-    user.workout = workout
-    user.reps = reps
-    user.sets = sets
-    user.weight = weight
-    db.session.commit()
-    
-    
-    return render_template("workout.html", workout=workout, reps=reps, sets=sets, weight=weight)
+
+    return render_template("workout.html")
 
 
 @app.route("/logout")
@@ -198,5 +178,5 @@ def logout():
     return render_template("logout.html")
 
 
-# if __name__ == "__main__":
-# app.run()
+if __name__ == "__main__":
+    app.run()
