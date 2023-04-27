@@ -18,7 +18,7 @@ app.config.from_object(__name__)
 
 # database setup
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://postgresql:y40A5phUu3hLic0@5moreapp-db.flycast:5432"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:y40A5phUu3hLic0@5moreapp-db.flycast:5432"
 
 
 db = SQLAlchemy(app)
