@@ -44,13 +44,13 @@ class Workout(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     
-    def __init__(self, username, password):
-        self.username = username
-        # self.email = email
-        self.password = password
+def __init__(self, username, password):
+    self.username = username
+    self.email = email
+    self.password = password
 
-    def __repr__(self):
-        return "<User %r>" % self.username
+def __repr__(self):
+    return "<User %r>" % self.username
 
 
 # the oauth is working and calling the api but I cannot fully test it since fly will not allow us to deploy
